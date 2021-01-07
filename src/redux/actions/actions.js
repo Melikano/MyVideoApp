@@ -1,42 +1,81 @@
 // @flow
-import { fetchToken } from '../../services/services';
-import type { Action, User, Dispatch } from '../../constants/types';
+import { postUser } from '../../services/services';
+import { getData, storeData } from '../../utils/localStorageUtils';
+import type { Action, User, Dispatch } from '../../models';
 import actionTypes from './actionTypes';
 
-function success(): Action {
-  return {
-    type: actionTypes.requestSuccess,
-  };
-}
-function failure(): Action {
-  return {
-    type: actionTypes.requestFailure,
-  };
-}
 function loading(): Action {
   return {
     type: actionTypes.requestLoading,
   };
 }
 
-function setToken(token: string): Action {
-  return { type: actionTypes.setToken, data: token };
+function failure(error: Object): Action {
+  return {
+    type: actionTypes.requestFailure,
+    data: error,
+  };
 }
 
-export function getToken(user: User): (Dispatch) => void {
-  //$FlowFixMe
-  return async function (dispatch: Dispatch): void {
+function setToken(token: string): Action {
+  return {
+    type: actionTypes.setToken,
+    data: token,
+  };
+}
+
+function setStatus(status: 'authorized' | 'unAuthorized') {
+  return {
+    type: actionTypes.setStatus,
+    data: status,
+  };
+}
+
+function setUser(user: User) {
+  return {
+    type: actionTypes.setUser,
+    data: user,
+  };
+}
+
+export function getTokenFromLocalStorage(): (Dispatch) => void {
+  return function (dispatch: Dispatch) {
     dispatch(loading());
+    getData(
+      'token',
+      (token) => {
+        if (token) {
+          dispatch(setStatus('authorized'));
+        } else {
+          dispatch(setStatus('unAuthorized'));
+        }
+      },
+      (error) => dispatch(failure(error)),
+    );
+  };
+}
 
-    try {
-      const tokenRes = await fetchToken(user);
-      const { token } = tokenRes;
+export function getUserFromLocalStorage(): (Dispatch) => void {
+  return function (dispatch: Dispatch) {
+    getData('user', (user) => dispatch(setUser(JSON.parse(user))));
+  };
+}
 
-      dispatch(success());
-      dispatch(setToken(token));
-    } catch (error) {
-      console.error(error);
-      dispatch(failure());
-    }
+export function login(user: User, onSuccess: Function): (Dispatch) => void {
+  return function (dispatch: Dispatch) {
+    dispatch(loading());
+    postUser(
+      user,
+      ({ token }) => {
+        dispatch(setToken(token));
+        dispatch(setUser(user));
+        storeData('user', user);
+        storeData('token', token, () => {
+          dispatch(setStatus('authorized'));
+          onSuccess();
+        });
+      },
+      (error) => dispatch(failure(error)),
+    );
   };
 }

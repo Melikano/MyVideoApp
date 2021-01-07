@@ -1,15 +1,25 @@
 // @flow
 import axios from 'axios';
-import type { User } from '../constants/types';
-import urls from '../constants/urls';
+import type { User } from '../models';
+import { urls } from '../constants';
 
-export function fetchToken(user: User): Promise<any> {
-  return axios({
-    method: 'POST',
-    url: urls.getToken,
-    headers: {
-      'Content-type': 'application/json',
-    },
-    data: JSON.stringify(user),
-  });
+export async function postUser(
+  user: User,
+  onSuccess: Function,
+  onError: Function,
+) {
+  try {
+    const response = await axios({
+      method: 'POST',
+      url: urls.getToken,
+      headers: {
+        'Content-type': 'application/json',
+      },
+      data: JSON.stringify(user),
+    });
+    onSuccess(response.data);
+  } catch (error) {
+    console.error(error);
+    onError(error);
+  }
 }

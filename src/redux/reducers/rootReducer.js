@@ -1,23 +1,31 @@
-import type { Action, State } from '../../constants/types';
+import type { Action, State } from '../../models';
 import actionTypes from '../actions/actionTypes';
 
-const rootReducer = function (state: State = {}, action: Action) {
-  switch (action.type) {
-    case actionTypes.requestSuccess: {
-      return { ...state, status: 'success' };
+const rootReducer = function (
+  state: State = {},
+  { type, data }: Action,
+): State {
+  switch (type) {
+    case actionTypes.requestLoading: {
+      return { ...state, loading: true, error: null };
     }
 
     case actionTypes.requestFailure: {
-      return { ...state, status: 'error' };
+      return { ...state, error: data, loading: false };
     }
 
-    case actionTypes.requestLoading: {
-      return { ...state, status: 'loading' };
+    case actionTypes.setStatus: {
+      return { ...state, status: data, loading: false };
     }
 
     case actionTypes.setToken: {
-      return { ...state, token: action.data };
+      return { ...state, token: data, error: null, loading: false };
     }
+
+    case actionTypes.setUser: {
+      return { ...state, user: data };
+    }
+
     default:
       return state;
   }
