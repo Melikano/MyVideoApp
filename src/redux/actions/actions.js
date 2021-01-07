@@ -31,7 +31,7 @@ function setStatus(status: 'authorized' | 'unAuthorized') {
   };
 }
 
-function setUser(user: User) {
+function setUser(user: ?User) {
   return {
     type: actionTypes.setUser,
     data: user,
@@ -77,5 +77,15 @@ export function login(user: User, onSuccess: Function): (Dispatch) => void {
       },
       (error) => dispatch(failure(error)),
     );
+  };
+}
+
+export function logout(): (Dispatch) => void {
+  return function (dispatch: Dispatch) {
+    dispatch(setStatus('unAuthorized'));
+    storeData('token', null);
+    storeData('user', null, () => {
+      dispatch(setUser(null));
+    });
   };
 }

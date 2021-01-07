@@ -1,14 +1,19 @@
 // @flow
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { View, Image, StyleSheet } from 'react-native';
+import { logout } from '../../redux/actions/actions';
 import { MButton, MText } from '../basics';
 import { colors, screens, strings, images } from '../../constants';
 
 const Profile = function ({ navigation }: any): React$Node {
-  const status = useSelector((state) => state.status);
-  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const status = useSelector((state) => state.status) || 'unAuthorized';
+  const user = useSelector((state) => state.user) || {};
 
+  const onLogoutPress = () => {
+    dispatch(logout());
+  };
   return (
     <View style={style.profile}>
       <View style={style.avatarContainer}>
@@ -66,7 +71,7 @@ const Profile = function ({ navigation }: any): React$Node {
             text={strings.logout}
             icon="sign-out"
             type="outlined"
-            onPress={() => {}}
+            onPress={onLogoutPress}
             btnStyle={style.listItem}
           />
         )}

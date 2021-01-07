@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/actions/actions';
 import getErrorMessage from '../../utils/errorHandler';
 import { MButton, MInput, MHeader, MText } from '../basics';
-import { screens, strings, colors } from '../../constants';
+import { screens, strings } from '../../constants';
 
 const Login = function ({ navigation }: any): React$Node {
   const [user, setUser] = useState({ username: '', password: '' });
@@ -88,6 +88,7 @@ const style = StyleSheet.create({
     width: '70%',
     marginTop: 50,
     alignSelf: 'center',
+    justifyContent: 'center',
   },
 });
 

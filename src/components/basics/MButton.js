@@ -33,11 +33,11 @@ const MButton = function ({
       onPress={onPress}
       disabled={disabled}
       style={[
-        btnStyle,
         style.btn,
         style[type],
         disabled && style.disabled,
         oval ? style.oval : style.square,
+        btnStyle,
       ]}>
       {loading ? (
         <ActivityIndicator size="small" color={colors.white} />
@@ -70,6 +70,7 @@ const style = StyleSheet.create({
   },
   outlined: {
     borderWidth: 1,
+    width: '100%',
     borderColor: colors.green,
   },
   bottomLined: {
