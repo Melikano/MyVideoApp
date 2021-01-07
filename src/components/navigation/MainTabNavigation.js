@@ -1,38 +1,66 @@
 // @flow
 import React from 'react';
+import { StyleSheet, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Home from '../screens/Home';
-import Profile from '../screens/Profile';
-import Colors from '../../constants/colors';
+import HomeScreen from '../screens/HomeScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import { colors, fonts, screens } from '../../constants';
 
 const Tab = createBottomTabNavigator();
 
 const MainTab = function (): React$Node {
+  const { profile, home } = screens;
   return (
     <Tab.Navigator
+      initialRouteName={home.name}
       tabBarOptions={{
-        activeTintColor: Colors.green,
-        inactiveTintColor: 'red',
+        activeTintColor: colors.green,
+        inactiveTintColor: colors.gray,
+        style: style.tabBar,
       }}>
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name={profile.name}
+        component={ProfileScreen}
         options={{
-          tabBarLabel: 'خانه',
-          tabBarIcon: () => <Icon name="user" color="black" size={26} />,
+          tabBarLabel: ({ color }) => (
+            <Text style={[style.tabBarItem, { color }]}>
+              {profile.tabLabel}
+            </Text>
+          ),
+          tabBarIcon: ({ color }) => (
+            <Icon name={profile.tabIcon} color={color} size={26} />
+          ),
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={Profile}
+        name={home.name}
+        component={HomeScreen}
         options={{
-          tabBarLabel: 'پروفایل',
-          tabBarIcon: () => <Icon name="user" size={26} />,
+          tabBarLabel: ({ color }) => (
+            <Text style={[style.tabBarItem, { color }]}>{home.tabLabel}</Text>
+          ),
+          tabBarIcon: ({ color }) => (
+            <Icon name={home.tabIcon} color={color} size={26} />
+          ),
         }}
       />
     </Tab.Navigator>
   );
 };
 
+const style = StyleSheet.create({
+  tabBar: {
+    backgroundColor: colors.darkGray,
+    position: 'absolute',
+    height: 65,
+    paddingTop: 8,
+    elevation: 30,
+  },
+  tabBarItem: {
+    fontFamily: fonts.light,
+    fontSize: 12,
+    paddingBottom: 8,
+  },
+});
 export default MainTab;
