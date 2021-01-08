@@ -38,7 +38,7 @@ export type Language = 'hindi' | 'english';
 export type Movie = {|
   +id: number,
   +title: string,
-  +date_of_releas: string,
+  +date_of_release: string,
   +rating: number,
   +tags: Array<Tag>,
   +director: string,

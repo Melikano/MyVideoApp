@@ -10,7 +10,7 @@ type Props = {
   movie: Movie,
 };
 const MovieItem = function ({ movie }: Props): React$Node {
-  const { title, director, rating, tags } = movie;
+  const { title, director, rating, tags, date_of_release } = movie;
   return (
     <View style={style.movieItem}>
       <Image source={images.defaultMovie} style={style.movieImage} />
@@ -19,6 +19,7 @@ const MovieItem = function ({ movie }: Props): React$Node {
           {title}
         </MText>
         <MText fontStyle="light">{director.substr(6)}</MText>
+        <MText fontStyle="light">{date_of_release.split('-')[0]}</MText>
         <View style={style.badgesContainer}>
           {tags.map((tag) => (
             <MBadge badgeStyle={style.badge}>
