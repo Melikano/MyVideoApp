@@ -128,7 +128,6 @@ export function login(user: User, onSuccess: Function): (Dispatch) => void {
 
 export function logout(): (Dispatch) => void {
   return function (dispatch: Dispatch) {
-    console.log('in logout');
     dispatch(setStatus('unAuthorized'));
     storeData('token', '');
     storeData('user', null, () => {
