@@ -36,7 +36,7 @@ const style = StyleSheet.create({
     borderRadius: 50,
     backgroundColor: colors.darkGray,
     fontFamily: fonts.medium,
-    paddingTop: 20,
+    paddingTop: 15,
     paddingRight: 15,
     paddingLeft: 45,
   },
