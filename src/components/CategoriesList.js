@@ -7,6 +7,7 @@ import type { Category } from '../models';
 import { setCurrentCategory } from '../redux/actions';
 import { MHeader, MLoader } from './basics';
 import CategoryItem from './CategoryItem';
+import { strings } from '../constants';
 
 type Props = {
   categories: Array<Category>,
@@ -26,7 +27,7 @@ const CategoriesList = function ({
     <FlatList
       data={categories}
       keyExtractor={(item) => item.id.toString()}
-      ListHeaderComponent={() => <MHeader title="دسته‌بندی‌ها" />}
+      ListHeaderComponent={() => <MHeader title={strings.categories} />}
       ListFooterComponent={() => loading && <MLoader />}
       renderItem={({ item }) => (
         <CategoryItem category={item} onPress={onCategoryPress} />

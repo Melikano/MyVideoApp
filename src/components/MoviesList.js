@@ -7,6 +7,7 @@ import { getMovies } from '../redux/actions';
 import MovieItem from './MovieItem';
 import { MHeader, MLoader, MSearchbox } from './basics';
 import type { Tag } from '../models';
+import { strings } from '../constants';
 
 type Props = {|
   +categorized?: boolean,
@@ -60,7 +61,7 @@ const MoviesList = function ({
     <View>
       {categorized && (
         <MHeader
-          title={`دسته‌بندی ${tag || ''}`}
+          title={strings.categoryMoviesTitle(tag)}
           showBack
           onBackPress={navigateToCategories}
         />

@@ -9,4 +9,7 @@ export default {
   loginToAccount: 'ورود به حساب کاربری',
   favourits: 'نشان‌شده‌ها',
   watched: 'مشاهده‌شده‌ها',
+  categories: 'دسته‌بندی‌ها',
+  categoryMoviesTitle: (category: string): string =>
+    `دسته‌بندی ${category || ''}`,
 };
