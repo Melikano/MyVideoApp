@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, Linking } from 'react-native';
 import { logout } from '../../redux/actions/actions';
 import { MButton, MText } from '../basics';
 import { colors, screens, strings, images } from '../../constants';
@@ -63,7 +63,9 @@ const Profile = function ({ navigation }: any): React$Node {
           text={strings.aboutUs}
           icon="info-circle"
           type="outlined"
-          onPress={() => {}}
+          onPress={() => {
+            Linking.openURL('https://github.com/melikano');
+          }}
           btnStyle={style.listItem}
         />
         {status === 'authorized' && (
@@ -90,7 +92,7 @@ const style = StyleSheet.create({
     justifyContent: 'space-between',
   },
   avatarContainer: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.darkGray,
     alignSelf: 'center',
     borderBottomLeftRadius: 70,
     borderBottomRightRadius: 70,

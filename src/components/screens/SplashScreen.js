@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
+import Icon from 'react-native-vector-icons/AntDesign';
 import { colors, screens } from '../../constants';
 
 const SplashScreen = function ({ navigation }: any): React$Node {
@@ -11,7 +11,8 @@ const SplashScreen = function ({ navigation }: any): React$Node {
 
   return (
     <View style={style.container}>
-      <Text style={style.text}>hellooo</Text>
+      <Icon name="videocamera" color={colors.green} size={72} />
+      <Text style={style.text}>My Video App</Text>
     </View>
   );
 };
@@ -19,10 +20,14 @@ const SplashScreen = function ({ navigation }: any): React$Node {
 const style = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'center',
     backgroundColor: colors.black,
   },
   text: {
-    color: colors.white,
+    color: colors.green,
+    fontSize: 36,
   },
 });
 export default SplashScreen;

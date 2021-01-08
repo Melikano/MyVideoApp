@@ -1,21 +1,29 @@
 // @flow
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { StyleSheet } from 'react-native';
 import type { Category } from '../models';
-import { MText } from './basics';
+import { MButton } from './basics';
 
 type Props = {|
   +category: Category,
   +onPress: Function,
 |};
 const CategoryItem = function ({ category, onPress }: Props): React$Node {
+  const { name } = category;
   return (
-    <TouchableOpacity
-      style={{ borderWidth: 1 }}
-      onPress={() => onPress(category.name)}>
-      <MText>{category.name}</MText>
-    </TouchableOpacity>
+    <MButton
+      text={name}
+      type="bottomLined"
+      icon="angle-right"
+      btnStyle={style.categoryItem}
+      onPress={() => onPress(name)}
+    />
   );
 };
-
+const style = StyleSheet.create({
+  categoryItem: {
+    marginVertical: 10,
+    flexDirection: 'row-reverse',
+  },
+});
 export default CategoryItem;

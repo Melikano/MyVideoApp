@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react';
-import { Image, View } from 'react-native';
-import { MText } from './basics';
+import { Image, StyleSheet, View } from 'react-native';
+import { MText, MBadge } from './basics';
 import type { Movie } from '../models';
 import { images, dimensions, colors } from '../constants';
 
@@ -10,31 +10,77 @@ type Props = {
   movie: Movie,
 };
 const MovieItem = function ({ movie }: Props): React$Node {
-  const { title } = movie;
+  const { title, director, rating, tags } = movie;
   return (
-    <View
-      style={{
-        borderWidth: 1,
-        marginVertical: 10,
-        borderColor: colors.white,
-        paddingHorizontal: 10,
-        paddingVertical: 10,
-        borderRadius: 5,
-      }}>
-      <Image
-        source={images.defaultMovie}
-        style={{
-          width: dimensions.screenWidth / 3,
-          height: (2 * dimensions.screenWidth) / 4,
-          borderRadius: 5,
-        }}
-      />
-
-      <MText fontStyle="bold" textStyle={{ overflow: 'hidden' }}>
-        {title}
-      </MText>
+    <View style={style.movieItem}>
+      <Image source={images.defaultMovie} style={style.movieImage} />
+      <View style={style.movieInfoContainer}>
+        <MText numberOfLines={1} fontStyle="bold" textStyle={style.movieTitle}>
+          {title}
+        </MText>
+        <MText fontStyle="light">{director.substr(6)}</MText>
+        <View style={style.badgesContainer}>
+          {tags.map((tag) => (
+            <MBadge badgeStyle={style.badge}>
+              <MText textStyle={style.badgeTxt}>{tag}</MText>
+            </MBadge>
+          ))}
+        </View>
+        <View style={style.badgesContainer}>
+          <MBadge square color={colors.yellow}>
+            <MText
+              textStyle={[
+                style.ratingTxt,
+                style.badgeTxt,
+              ]}>{`IMDB:  ${rating}`}</MText>
+          </MBadge>
+        </View>
+      </View>
     </View>
   );
 };
 
+const style = StyleSheet.create({
+  movieItem: {
+    borderWidth: 1,
+    marginVertical: 5,
+    marginHorizontal: 5,
+    borderColor: colors.gray,
+    borderRadius: 5,
+    width: dimensions.screenWidth / 3,
+    flexDirection: 'column',
+    flex: 1,
+    alignItems: 'stretch',
+    justifyContent: 'center',
+  },
+  movieImage: {
+    flex: 1,
+    height: 120,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  movieInfoContainer: {
+    padding: 5,
+  },
+  movieTitle: {
+    flex: 1,
+    height: 20,
+    overflow: 'hidden',
+  },
+  badgeTxt: {
+    fontSize: 10,
+  },
+  badgesContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  badge: {
+    marginHorizontal: 2,
+    marginVertical: 3,
+  },
+  ratingTxt: {
+    color: colors.black,
+  },
+});
 export default MovieItem;

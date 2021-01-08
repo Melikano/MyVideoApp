@@ -79,6 +79,7 @@ const style = StyleSheet.create({
   },
   fillTxt: {
     marginHorizontal: 5,
+    color: colors.white,
   },
   outlinedTxt: {
     marginHorizontal: 5,

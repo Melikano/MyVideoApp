@@ -1,10 +1,11 @@
 // @flow
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { screens } from '../constants';
 import type { Category } from '../models';
 import { setCurrentCategory } from '../redux/actions/actions';
+import { MHeader } from './basics';
 import CategoryItem from './CategoryItem';
 
 type Props = {
@@ -23,17 +24,21 @@ const CategoriesList = function ({
   return (
     <FlatList
       data={categories}
+      keyExtractor={(item) => item.id.toString()}
+      ListHeaderComponent={() => <MHeader title="دسته‌بندی‌ها" />}
       renderItem={({ item }) => (
         <CategoryItem category={item} onPress={onCategoryPress} />
       )}
-      columnWrapperStyle={{ flex: 1, justifyContent: 'space-around' }}
-      numColumns={2}
-      style={{
-        width: '90%',
-        alignSelf: 'center',
-        marginBottom: 80,
-      }}
+      style={style.categoriesList}
     />
   );
 };
+
+const style = StyleSheet.create({
+  categoriesList: {
+    width: '90%',
+    alignSelf: 'center',
+    marginBottom: 80,
+  },
+});
 export default CategoriesList;

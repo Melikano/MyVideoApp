@@ -16,9 +16,12 @@ const MText = function ({
   variant = 'normal',
   textStyle = {},
   children,
+  ...props
 }: Props): React$Node {
   return (
-    <Text style={[style[fontStyle], style[variant], textStyle]}>
+    <Text
+      style={[style[fontStyle], style[variant], textStyle]}
+      {...(props: any)}>
       {children}
     </Text>
   );

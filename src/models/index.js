@@ -4,8 +4,6 @@ export type User = {|
   +password: string,
 |};
 
-export type Status = 'authorized' | 'unAuthorized';
-
 export type Country = 'IND' | 'USA' | 'AUS';
 export type Tag =
   | 'action'
@@ -43,17 +41,21 @@ export type Movie = {|
   +date_of_releas: string,
   +rating: number,
   +tags: Array<Tag>,
-  +direcotr: string,
+  +director: string,
 |};
+
+export type Status = 'authorized' | 'unAuthorized';
 
 export type Category = {|
   +id: number,
   +name: string,
 |};
 export type State = {
+  loading?: boolean,
   status?: Status,
   token?: string,
   user?: User,
+  currentCategory?: Category,
 };
 
 export type Action = {
