@@ -36,7 +36,8 @@ const style = StyleSheet.create({
     borderRadius: 50,
     backgroundColor: colors.darkGray,
     fontFamily: fonts.medium,
-    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingRight: 15,
     paddingLeft: 45,
   },
   searchIcon: {

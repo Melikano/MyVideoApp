@@ -2,7 +2,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { View, Image, StyleSheet, Linking } from 'react-native';
-import { logout } from '../../redux/actions/actions';
+import { logout } from '../../redux/actions';
 import { MButton, MText } from '../basics';
 import { colors, screens, strings, images } from '../../constants';
 

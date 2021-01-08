@@ -5,15 +5,7 @@ import {
   fetchCategories,
 } from '../../services/services';
 import { getData, storeData } from '../../utils/localStorageUtils';
-import type {
-  Action,
-  User,
-  Dispatch,
-  Country,
-  Tag,
-  Language,
-  Category,
-} from '../../models';
+import type { Action, User, Dispatch, Tag, Category } from '../../models';
 import actionTypes from './actionTypes';
 
 function loading(): Action {
@@ -123,8 +115,8 @@ export function login(user: User, onSuccess: Function): (Dispatch) => void {
       ({ token }) => {
         dispatch(setToken(token));
         dispatch(setUser(user));
-        storeData('user', user);
-        storeData('token', token, () => {
+        storeData('token', token);
+        storeData('user', user, () => {
           dispatch(setStatus('authorized'));
           onSuccess();
         });
@@ -136,8 +128,9 @@ export function login(user: User, onSuccess: Function): (Dispatch) => void {
 
 export function logout(): (Dispatch) => void {
   return function (dispatch: Dispatch) {
+    console.log('in logout');
     dispatch(setStatus('unAuthorized'));
-    storeData('token', null);
+    storeData('token', '');
     storeData('user', null, () => {
       dispatch(setUser(null));
     });
@@ -146,9 +139,7 @@ export function logout(): (Dispatch) => void {
 
 export function getMovies(
   queryParams: {
-    country?: Country,
-    language?: Language,
-    tag?: Tag,
+    tags?: Tag,
     search?: string,
   },
   categorized?: boolean,
@@ -159,7 +150,7 @@ export function getMovies(
     const params = {
       ...queryParams,
       limit: pageSize,
-      offset: pageSize * pageNumber,
+      offset: pageSize * (pageNumber - 1),
     };
     dispatch(loading());
     fetchMovies(

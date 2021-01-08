@@ -35,6 +35,7 @@ export async function fetchMovies(
       url: urls.movie,
       params,
     });
+    console.log(response);
     const {
       data: { results, next },
     } = response;

@@ -3,13 +3,14 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FlatList, View, StyleSheet } from 'react-native';
-import { getMovies } from '../redux/actions/actions';
+import { getMovies } from '../redux/actions';
 import MovieItem from './MovieItem';
 import { MHeader, MLoader, MSearchbox } from './basics';
+import type { Tag } from '../models';
 
 type Props = {|
   +categorized?: boolean,
-  +tag?: string,
+  +tag?: Tag,
   +navigateToCategories?: Function,
 |};
 const MoviesList = function ({
@@ -19,9 +20,6 @@ const MoviesList = function ({
 }: Props): React$Node {
   const loading = useSelector((state) => state.loading);
   const [currentPage, setCurrentPage] = useState(1);
-  const [country, setCountry] = useState();
-  const [language, setLanguage] = useState();
-  const [tags, setTags] = useState(tag);
   const [search, setSearch] = useState('');
 
   const movies = useSelector((state) =>
@@ -33,16 +31,14 @@ const MoviesList = function ({
     dispatch(
       getMovies(
         {
-          country,
-          language,
-          tags,
+          tags: tag,
           search,
         },
         categorized,
         currentPage,
       ),
     );
-  }, [dispatch, country, language, tags, search, categorized, currentPage]);
+  }, [dispatch, tag, search, categorized, currentPage]);
 
   const goToNextPage = () => {
     if (movies.hasNext) {
@@ -92,7 +88,7 @@ const style = StyleSheet.create({
     marginTop: 10,
   },
   footer: {
-    marginBottom: 20,
+    marginBottom: 60,
   },
 });
 export default MoviesList;

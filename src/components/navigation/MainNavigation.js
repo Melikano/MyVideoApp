@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import {
   getTokenFromLocalStorage,
   getUserFromLocalStorage,
-} from '../../redux/actions/actions';
+} from '../../redux/actions';
 
 import MainTabNavigation from './MainTabNavigation';
 import SplashScreen from '../screens/SplashScreen';

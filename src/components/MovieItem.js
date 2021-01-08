@@ -10,10 +10,21 @@ type Props = {
   movie: Movie,
 };
 const MovieItem = function ({ movie }: Props): React$Node {
-  const { title, director, rating, tags, date_of_release } = movie;
+  const {
+    id,
+    title,
+    director,
+    rating,
+    tags,
+    date_of_release,
+    imageUrl,
+  } = movie;
   return (
-    <View style={style.movieItem}>
-      <Image source={images.defaultMovie} style={style.movieImage} />
+    <View style={style.movieItem} key={id}>
+      <Image
+        source={imageUrl || images.defaultMovie}
+        style={style.movieImage}
+      />
       <View style={style.movieInfoContainer}>
         <MText numberOfLines={1} fontStyle="bold" textStyle={style.movieTitle}>
           {title}
@@ -50,7 +61,7 @@ const style = StyleSheet.create({
     borderRadius: 5,
     width: dimensions.screenWidth / 3,
     flexDirection: 'column',
-    flex: 1,
+    flex: 0.5,
     alignItems: 'stretch',
     justifyContent: 'center',
   },

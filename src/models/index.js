@@ -42,6 +42,7 @@ export type Movie = {|
   +rating: number,
   +tags: Array<Tag>,
   +director: string,
+  +imageUrl?: string,
 |};
 
 export type Status = 'authorized' | 'unAuthorized';

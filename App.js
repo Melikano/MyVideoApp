@@ -5,7 +5,7 @@ import { StatusBar } from 'react-native';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import rootReducer from './src/redux/reducers/rootReducer';
+import rootReducer from './src/redux/reducers';
 import { NavigationContainer } from '@react-navigation/native';
 import MainNavigation from './src/components/navigation/MainNavigation';
 import { colors } from './src/constants';

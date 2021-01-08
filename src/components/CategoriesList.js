@@ -1,11 +1,11 @@
 // @flow
 import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { screens } from '../constants';
 import type { Category } from '../models';
-import { setCurrentCategory } from '../redux/actions/actions';
-import { MHeader } from './basics';
+import { setCurrentCategory } from '../redux/actions';
+import { MHeader, MLoader } from './basics';
 import CategoryItem from './CategoryItem';
 
 type Props = {
@@ -16,6 +16,7 @@ const CategoriesList = function ({
   categories,
   navigation,
 }: Props): React$Node {
+  const loading = useSelector((state) => state.loading);
   const dispatch = useDispatch();
   const onCategoryPress = (category) => {
     dispatch(setCurrentCategory(category));
@@ -26,6 +27,7 @@ const CategoriesList = function ({
       data={categories}
       keyExtractor={(item) => item.id.toString()}
       ListHeaderComponent={() => <MHeader title="دسته‌بندی‌ها" />}
+      ListFooterComponent={() => loading && <MLoader />}
       renderItem={({ item }) => (
         <CategoryItem category={item} onPress={onCategoryPress} />
       )}

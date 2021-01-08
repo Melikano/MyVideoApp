@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../redux/actions/actions';
+import { login } from '../../redux/actions';
 import getErrorMessage from '../../utils/errorHandler';
 import { MButton, MInput, MHeader, MText } from '../basics';
 import { screens, strings } from '../../constants';

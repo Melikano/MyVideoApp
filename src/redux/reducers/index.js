@@ -1,7 +1,7 @@
 import type { Action, State } from '../../models';
 import actionTypes from '../actions/actionTypes';
 
-const rootReducer = function (
+export default function (
   state: State = {
     token: '',
     movies: {},
@@ -86,6 +86,4 @@ const rootReducer = function (
     default:
       return state;
   }
-};
-
-export default rootReducer;
+}
