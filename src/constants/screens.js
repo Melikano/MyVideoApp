@@ -10,10 +10,16 @@ export default {
     tabLabel: 'خانه',
     tabIcon: 'home',
   },
-  categories: {
-    name: 'CATEGORIES',
+  categoriesStack: {
+    name: 'CATEGORIES_STACK',
     tabLabel: 'دسته‌بندی‌ها',
     tabIcon: 'switcher',
+  },
+  categories: {
+    name: 'CATEGORIES',
+  },
+  categoryMovies: {
+    name: 'CATEGORY_MOVIES',
   },
   splash: {
     name: 'SPLASH',

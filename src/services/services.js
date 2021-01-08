@@ -41,7 +41,6 @@ export async function fetchMovies(
     onSuccess({ movies: results, hasNext: Boolean(next) });
   } catch (error) {
     console.error(error);
-    console.log(error.response);
     onError(error);
   }
 }
@@ -52,7 +51,6 @@ export async function fetchCategories(onSuccess: Function, onError: Function) {
       method: 'GET',
       url: urls.category,
     });
-    console.log(response);
     const { data } = response;
     onSuccess(data.results);
   } catch (error) {

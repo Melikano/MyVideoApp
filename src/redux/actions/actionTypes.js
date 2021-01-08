@@ -6,5 +6,7 @@ export default {
   setStatus: 'SET_STATUS',
   setUser: 'SET_USER',
   setMovies: 'SET_MOVIES',
+  setCategorizedMovies: 'SET_CATEGORIZED_MOVIES',
   setCategories: 'SET_CATEGORIES',
+  setCurrentCategory: 'SET_CURRENT_CATEGORY',
 };

@@ -12,6 +12,7 @@ import type {
   Country,
   Tag,
   Language,
+  Category,
 } from '../../models';
 import actionTypes from './actionTypes';
 
@@ -61,10 +62,33 @@ function setMovies(movies: Array<any>, hasNext: boolean, pageNumber: number) {
   };
 }
 
-function setCategories(categories: Object) {
+function setCategorizedMovies(
+  movies: Array<any>,
+  hasNext: boolean,
+  pageNumber: number,
+) {
+  const pagedMovies = {
+    list: { [pageNumber]: movies },
+    hasNext,
+    lastPage: pageNumber,
+  };
+  return {
+    type: actionTypes.setCategorizedMovies,
+    data: pagedMovies,
+  };
+}
+
+function setCategories(categories: Array<Category>) {
   return {
     type: actionTypes.setCategories,
     data: categories,
+  };
+}
+
+export function setCurrentCategory(category: string): Action {
+  return {
+    type: actionTypes.setCurrentCategory,
+    data: category,
   };
 }
 
@@ -127,6 +151,7 @@ export function getMovies(
     tag?: Tag,
     search?: string,
   },
+  categorized?: boolean,
   pageNumber: number,
 ): (Dispatch) => void {
   return function (dispatch: Dispatch) {
@@ -140,7 +165,9 @@ export function getMovies(
     fetchMovies(
       params,
       ({ movies, hasNext }) => {
-        dispatch(setMovies(movies, hasNext, pageNumber));
+        categorized
+          ? dispatch(setCategorizedMovies(movies, hasNext, pageNumber))
+          : dispatch(setMovies(movies, hasNext, pageNumber));
       },
       (error) => dispatch(failure(error)),
     );

@@ -3,12 +3,14 @@ import actionTypes from '../actions/actionTypes';
 
 const rootReducer = function (
   state: State = {
+    token: '',
     movies: {},
+    categorizedMovies: {},
     categories: [],
     loading: false,
     error: null,
-    token: '',
     user: null,
+    category: '',
   },
   { type, data }: Action,
 ): State {
@@ -53,8 +55,32 @@ const rootReducer = function (
       };
     }
 
+    case actionTypes.setCategorizedMovies: {
+      const {
+        categorizedMovies: { lastPage, list },
+      } = state;
+
+      return {
+        ...state,
+        categorizedMovies: {
+          list:
+            lastPage && lastPage > data.lastPage
+              ? data.list
+              : { ...(list || {}), ...data.list },
+          hasNext: data.hasNext,
+          lastPage: data.lastPage,
+        },
+        error: null,
+        loading: false,
+      };
+    }
+
     case actionTypes.setCategories: {
       return { ...state, categories: data, error: null, loading: false };
+    }
+
+    case actionTypes.setCurrentCategory: {
+      return { ...state, category: data };
     }
 
     default:

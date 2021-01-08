@@ -5,13 +5,13 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import CategoriesScreen from '../screens/CategoriesScreen';
+import CategoriesStack from './CategoriesStack';
 import { colors, fonts, screens } from '../../constants';
 
 const Tab = createBottomTabNavigator();
 
 const MainTab = function (): React$Node {
-  const { profile, home, categories } = screens;
+  const { profile, home, categoriesStack } = screens;
   return (
     <Tab.Navigator
       initialRouteName={home.name}
@@ -35,16 +35,16 @@ const MainTab = function (): React$Node {
         }}
       />
       <Tab.Screen
-        name={categories.name}
-        component={CategoriesScreen}
+        name={categoriesStack.name}
+        component={CategoriesStack}
         options={{
           tabBarLabel: ({ color }) => (
             <Text style={[style.tabBarItem, { color }]}>
-              {categories.tabLabel}
+              {categoriesStack.tabLabel}
             </Text>
           ),
           tabBarIcon: ({ color }) => (
-            <Icon name={categories.tabIcon} color={color} size={26} />
+            <Icon name={categoriesStack.tabIcon} color={color} size={26} />
           ),
         }}
       />
