@@ -41,7 +41,9 @@ const MoviesList = function ({ tag, categorized }: Props): React$Node {
   }, [dispatch, country, language, tags, search, categorized, currentPage]);
 
   const goToNextPage = () => {
-    setCurrentPage(currentPage + 1);
+    if (movies.hasNext) {
+      setCurrentPage(currentPage + 1);
+    }
   };
 
   const allMovies = useMemo(
