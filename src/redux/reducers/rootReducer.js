@@ -2,7 +2,13 @@ import type { Action, State } from '../../models';
 import actionTypes from '../actions/actionTypes';
 
 const rootReducer = function (
-  state: State = {},
+  state: State = {
+    movies: {},
+    loading: false,
+    error: null,
+    token: '',
+    user: null,
+  },
   { type, data }: Action,
 ): State {
   switch (type) {
@@ -24,6 +30,26 @@ const rootReducer = function (
 
     case actionTypes.setUser: {
       return { ...state, user: data };
+    }
+
+    case actionTypes.setMovies: {
+      const {
+        movies: { lastPage, list },
+      } = state;
+
+      return {
+        ...state,
+        movies: {
+          list:
+            lastPage && lastPage > data.lastPage
+              ? data.list
+              : { ...(list || {}), ...data.list },
+          hasNext: data.hasNext,
+          lastPage: data.lastPage,
+        },
+        error: null,
+        loading: false,
+      };
     }
 
     default:

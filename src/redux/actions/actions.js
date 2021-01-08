@@ -1,7 +1,14 @@
 // @flow
-import { postUser } from '../../services/services';
+import { postUser, fetchMovies } from '../../services/services';
 import { getData, storeData } from '../../utils/localStorageUtils';
-import type { Action, User, Dispatch } from '../../models';
+import type {
+  Action,
+  User,
+  Dispatch,
+  Country,
+  Tag,
+  Language,
+} from '../../models';
 import actionTypes from './actionTypes';
 
 function loading(): Action {
@@ -35,6 +42,18 @@ function setUser(user: ?User) {
   return {
     type: actionTypes.setUser,
     data: user,
+  };
+}
+
+function setMovies(movies: Array<any>, hasNext: boolean, pageNumber: number) {
+  const pagedMovies = {
+    list: { [pageNumber]: movies },
+    hasNext,
+    lastPage: pageNumber,
+  };
+  return {
+    type: actionTypes.setMovies,
+    data: pagedMovies,
   };
 }
 
@@ -87,5 +106,32 @@ export function logout(): (Dispatch) => void {
     storeData('user', null, () => {
       dispatch(setUser(null));
     });
+  };
+}
+
+export function getMovies(
+  queryParams: {
+    country?: Country,
+    language?: Language,
+    tag?: Tag,
+    search?: string,
+  },
+  pageNumber: number,
+): (Dispatch) => void {
+  return function (dispatch: Dispatch) {
+    const pageSize = 10;
+    const params = {
+      ...queryParams,
+      limit: pageSize,
+      offset: pageSize * pageNumber,
+    };
+    dispatch(loading());
+    fetchMovies(
+      params,
+      ({ movies, hasNext }) => {
+        dispatch(setMovies(movies, hasNext, pageNumber));
+      },
+      (error) => dispatch(failure(error)),
+    );
   };
 }

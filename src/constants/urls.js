@@ -1,5 +1,6 @@
 const baseUrl = 'https://imdb.hriks.com';
 
 export default {
-  getToken: `${baseUrl}/user/auth-token`,
+  user: `${baseUrl}/user/auth-token`,
+  movie: `${baseUrl}/movie/`,
 };

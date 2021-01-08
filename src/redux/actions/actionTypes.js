@@ -5,4 +5,5 @@ export default {
   setToken: 'SET_TOKEN',
   setStatus: 'SET_STATUS',
   setUser: 'SET_USER',
+  setMovies: 'SET_MOVIES',
 };
