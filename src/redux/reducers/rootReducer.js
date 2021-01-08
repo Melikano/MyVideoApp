@@ -4,6 +4,7 @@ import actionTypes from '../actions/actionTypes';
 const rootReducer = function (
   state: State = {
     movies: {},
+    categories: [],
     loading: false,
     error: null,
     token: '',
@@ -50,6 +51,10 @@ const rootReducer = function (
         error: null,
         loading: false,
       };
+    }
+
+    case actionTypes.setCategories: {
+      return { ...state, categories: data, error: null, loading: false };
     }
 
     default:

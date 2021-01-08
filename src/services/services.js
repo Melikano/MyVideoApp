@@ -35,7 +35,6 @@ export async function fetchMovies(
       url: urls.movie,
       params,
     });
-    console.log(response);
     const {
       data: { results, next },
     } = response;
@@ -43,6 +42,21 @@ export async function fetchMovies(
   } catch (error) {
     console.error(error);
     console.log(error.response);
+    onError(error);
+  }
+}
+
+export async function fetchCategories(onSuccess: Function, onError: Function) {
+  try {
+    const response = await axios({
+      method: 'GET',
+      url: urls.category,
+    });
+    console.log(response);
+    const { data } = response;
+    onSuccess(data.results);
+  } catch (error) {
+    console.error(error);
     onError(error);
   }
 }

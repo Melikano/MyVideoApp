@@ -38,14 +38,18 @@ export type Tag =
 export type Language = 'hindi' | 'english';
 
 export type Movie = {|
-  +id: Number,
+  +id: number,
   +title: string,
   +date_of_releas: string,
-  +rating: Number,
+  +rating: number,
   +tags: Array<Tag>,
   +direcotr: string,
 |};
 
+export type Category = {|
+  +id: number,
+  +name: string,
+|};
 export type State = {
   status?: Status,
   token?: string,

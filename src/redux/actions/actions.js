@@ -1,5 +1,9 @@
 // @flow
-import { postUser, fetchMovies } from '../../services/services';
+import {
+  postUser,
+  fetchMovies,
+  fetchCategories,
+} from '../../services/services';
 import { getData, storeData } from '../../utils/localStorageUtils';
 import type {
   Action,
@@ -54,6 +58,13 @@ function setMovies(movies: Array<any>, hasNext: boolean, pageNumber: number) {
   return {
     type: actionTypes.setMovies,
     data: pagedMovies,
+  };
+}
+
+function setCategories(categories: Object) {
+  return {
+    type: actionTypes.setCategories,
+    data: categories,
   };
 }
 
@@ -132,6 +143,16 @@ export function getMovies(
         dispatch(setMovies(movies, hasNext, pageNumber));
       },
       (error) => dispatch(failure(error)),
+    );
+  };
+}
+
+export function getCategories(): (Dispatch) => void {
+  return function (dispatch: Dispatch) {
+    dispatch(loading());
+    fetchCategories(
+      (categories) => dispatch(setCategories(categories)),
+      (error) => dispatch(error),
     );
   };
 }
